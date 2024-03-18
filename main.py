@@ -112,7 +112,7 @@ class MineSweeper(tk.Tk):
             for x in range(self.width):
                 if self.tiles[y][x]["state"] == tk.NORMAL:
                     if self.flags[y][x] == 0:
-                        self.tiles[y][x].config(text="?")
+                        self.tiles[y][x].config(text="")
                     elif self.flags[y][x] == 1:
                         self.tiles[y][x].config(text="F")
                     else:
