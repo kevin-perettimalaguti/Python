@@ -70,6 +70,7 @@ class MineSweeper(tk.Tk):
                             self.reveal_tile(nx, ny)
             else:
                 self.tiles[y][x].config(text=str(value), state=tk.DISABLED)
+                self.tiles[y][x].config(disabledforeground=self.colors[str(value)])
 
     def toggle_flag(self, event):
         x, y = self.winfo_pointerxy()
