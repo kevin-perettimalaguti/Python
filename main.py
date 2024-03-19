@@ -15,7 +15,7 @@ class MineSweeper(tk.Tk):
         self.start_time = None
         self.timer_label = tk.Label(self, text="Time: 0")
         self.timer_label.grid(row=height, columnspan=width)
-        self.colors = {"1": "blue", "2": "green", "3": "red", "4": "purple",
+        self.colors = {"1": "blue", "2": "green", "3": "yellow", "4": "purple",
                "5": "maroon", "6": "turquoise", "7": "black", "8": "gray"}        
         self.create_widgets()
         self.place_mines()
