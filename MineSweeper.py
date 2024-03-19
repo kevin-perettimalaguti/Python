@@ -5,6 +5,7 @@ import time
 class MineSweeper(tk.Tk):
     def __init__(self, width, height, num_mines, difficulty):
         super().__init__()
+        self.title("MineSweeper")
         self.width = width
         self.height = height
         self.num_mines = num_mines
@@ -15,15 +16,11 @@ class MineSweeper(tk.Tk):
         self.start_time = None
         self.timer_label = tk.Label(self, text="Time: 0")
         self.timer_label.grid(row=height, columnspan=width)
-        self.colors = {"blue": "#0000FF", "green": "#008000", "red": "#FF0000",
-                       "purple": "#800080", "maroon": "#800000", "turquoise": "#40E0D0",
-                       "black": "#000000", "gray": "#808080"}
         self.create_widgets()
         self.place_mines()
         self.update_display()
         self.bind("<Button-3>", self.toggle_flag)
-        self.reset_button = tk.Button(self, text="Reset", command=self.reset_game)
-        self.reset_button.grid(row=height+1, columnspan=width)
+        self.button()        
 
     def create_widgets(self):
         for y in range(self.height):
@@ -58,7 +55,7 @@ class MineSweeper(tk.Tk):
                 self.game_over()
             else:
                 self.reveal_tile(x, y)
-    
+
     def reveal_tile(self, x, y):
         if self.tiles[y][x]["state"] == tk.NORMAL:
             value = self.board[y][x]
@@ -70,20 +67,7 @@ class MineSweeper(tk.Tk):
                         if 0 <= nx < self.width and 0 <= ny < self.height:
                             self.reveal_tile(nx, ny)
             else:
-                self.tiles[y][x].config(state=tk.DISABLED)
-
-                # Changer la couleur du texte après le clic
-                current_text = self.tiles[y][x].cget("text")
-                self.change_text_color(value, x, y, current_text)
-
-    def change_text_color(self, value, x, y, current_text):
-        color = self.colors.get(value)
-        if color:
-            self.tiles[y][x].config(text='<font color="{}">{}</font>'.format(color, current_text), state=tk.DISABLED)
-
-
-    
-
+                self.tiles[y][x].config(text=str(value), state=tk.DISABLED)
 
     def toggle_flag(self, event):
         x, y = self.winfo_pointerxy()
@@ -124,10 +108,75 @@ class MineSweeper(tk.Tk):
             elapsed_time = int(time.time() - self.start_time)
             self.timer_label.config(text="Time: {}".format(elapsed_time))
             self.after(1000, self.update_timer)
+    
+    def button(self):
+        self.button_easy = tk.Button(self, text="Easy", command=self.start_game_easy)
+        self.button_easy.grid(row=self.height + 1, column=0, columnspan=self.width // 3, sticky="ew")
+
+        self.button_medium = tk.Button(self, text="Medium", command=self.start_game_medium)
+        self.button_medium.grid(row=self.height + 1, column=self.width // 3, columnspan=self.width // 3, sticky="ew")
+
+        self.button_hard = tk.Button(self, text="Hard", command=self.start_game_hard)
+        self.button_hard.grid(row=self.height + 1, column=(self.width // 3) * 2, columnspan=self.width // 3, sticky="ew")
+
+        self.button_reset = tk.Button(self, text="Reset", command=self.reset_game)
+        self.button_reset.grid(row=self.height + 2, column=self.width // 3, columnspan=self.width // 3, sticky="ew")
+
+        
+    def start_game_easy(self):
+        self.destroy()
+        difficulty_levels = {
+        "Easy": {"width": 8, "height": 8, "mines_range": (10, 15)},
+        "Medium": {"width": 10, "height": 10, "mines_range": (20, 30)},
+        "Hard": {"width": 12, "height": 12, "mines_range": (30, 40)}
+        }
+
+        chosen_difficulty = "Easy"
+        width = difficulty_levels[chosen_difficulty]["width"]
+        height = difficulty_levels[chosen_difficulty]["height"]
+        min_mines, max_mines = difficulty_levels[chosen_difficulty]["mines_range"]
+        num_mines = random.randint(min_mines, max_mines)
+        game = MineSweeper(width=width, height=height, num_mines=num_mines, difficulty=chosen_difficulty)
+        game.mainloop()
+        
+    def start_game_medium(self):
+        self.destroy()
+        difficulty_levels = {
+        "Easy": {"width": 8, "height": 8, "mines_range": (10, 15)},
+        "Medium": {"width": 10, "height": 10, "mines_range": (20, 30)},
+        "Hard": {"width": 12, "height": 12, "mines_range": (30, 40)}
+        }
+
+        chosen_difficulty = "Medium"
+        width = difficulty_levels[chosen_difficulty]["width"]
+        height = difficulty_levels[chosen_difficulty]["height"]
+        min_mines, max_mines = difficulty_levels[chosen_difficulty]["mines_range"]
+        num_mines = random.randint(min_mines, max_mines)
+        game = MineSweeper(width=width, height=height, num_mines=num_mines, difficulty=chosen_difficulty)
+        game.mainloop()
+        
+    def start_game_hard(self):
+        self.destroy()
+        difficulty_levels = {
+        "Easy": {"width": 8, "height": 8, "mines_range": (10, 15)},
+        "Medium": {"width": 10, "height": 10, "mines_range": (20, 30)},
+        "Hard": {"width": 12, "height": 12, "mines_range": (30, 40)}
+        }
+
+        chosen_difficulty = "Hard"
+        width = difficulty_levels[chosen_difficulty]["width"]
+        height = difficulty_levels[chosen_difficulty]["height"]
+        min_mines, max_mines = difficulty_levels[chosen_difficulty]["mines_range"]
+        num_mines = random.randint(min_mines, max_mines)
+        game = MineSweeper(width=width, height=height, num_mines=num_mines, difficulty=chosen_difficulty)
+        game.mainloop()
 
     def reset_game(self):
         self.destroy()
         new_game = MineSweeper(self.width, self.height, self.num_mines, self.difficulty)
         new_game.mainloop()
+        
+    
+
 
 
