@@ -1,11 +1,7 @@
-from MineSweeper import MineSweeper
+import tkinter as tk
 import random
+import time
 
-<<<<<<< HEAD
-def start_game():
-
-        difficulty_levels = {
-=======
 class MineSweeper(tk.Tk):
     def __init__(self, width, height, num_mines, difficulty):
         super().__init__()
@@ -19,7 +15,7 @@ class MineSweeper(tk.Tk):
         self.start_time = None
         self.timer_label = tk.Label(self, text="Time: 0")
         self.timer_label.grid(row=height, columnspan=width)
-        self.colors = {"1": "blue", "2": "green", "3": "red", "4": "purple",
+        self.colors = {"1": "blue", "2": "green", "3": "yellow", "4": "purple",
                "5": "maroon", "6": "turquoise", "7": "black", "8": "gray"}        
         self.create_widgets()
         self.place_mines()
@@ -60,6 +56,7 @@ class MineSweeper(tk.Tk):
         if self.flags[y][x] == 0:
             if self.board[y][x] == -1:
                 self.tiles[y][x].config(text="X", state=tk.DISABLED)
+
                 self.game_over()
             else:
                 self.reveal_tile(x, y)
@@ -102,8 +99,9 @@ class MineSweeper(tk.Tk):
         for y in range(self.height):
             for x in range(self.width):
                 if self.board[y][x] == -1:
-                    self.tiles[y][x].config(text="X", state=tk.DISABLED)
-                    
+                    self.tiles[y][x].config(text="X", state=tk.DISABLED, disabledforeground="red")               
+                      
+
         
         for row in self.tiles:
             for tile in row:
@@ -123,8 +121,12 @@ class MineSweeper(tk.Tk):
         
         self.start_time = None
         
-        # Ajouter le bouton Reset en dessous
+        # Add a resest button above 
         reset_button = tk.Button(game_over_window, text="Reset", command=self.reset_game)
+        reset_button.pack(pady=10)
+        
+        # Add a quit button below
+        reset_button = tk.Button(game_over_window, text="Quit", command=self.quit)
         reset_button.pack(pady=10)
                     
 
@@ -154,20 +156,15 @@ class MineSweeper(tk.Tk):
 
 if __name__ == "__main__":
     difficulty_levels = {
->>>>>>> 928ad13 (add pop up windows for end game and colors for the numbers (more visible))
         "Easy": {"width": 8, "height": 8, "mines_range": (10, 15)},
         "Medium": {"width": 10, "height": 10, "mines_range": (20, 30)},
         "Hard": {"width": 12, "height": 12, "mines_range": (30, 40)}
-        }
+    }
 
-        chosen_difficulty = "Medium"
-        width = difficulty_levels[chosen_difficulty]["width"]
-        height = difficulty_levels[chosen_difficulty]["height"]
-        min_mines, max_mines = difficulty_levels[chosen_difficulty]["mines_range"]
-        num_mines = random.randint(min_mines, max_mines)
-        game = MineSweeper(width=width, height=height, num_mines=num_mines, difficulty=chosen_difficulty)
-        game.mainloop()
-        
-start_game()
-
-    
+    chosen_difficulty = "Medium"  # Change difficulty here
+    width = difficulty_levels[chosen_difficulty]["width"]
+    height = difficulty_levels[chosen_difficulty]["height"]
+    min_mines, max_mines = difficulty_levels[chosen_difficulty]["mines_range"]
+    num_mines = random.randint(min_mines, max_mines)
+    game = MineSweeper(width=width, height=height, num_mines=num_mines, difficulty=chosen_difficulty)
+    game.mainloop()
