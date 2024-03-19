@@ -15,17 +15,8 @@ class MineSweeper(tk.Tk):
         self.start_time = None
         self.timer_label = tk.Label(self, text="Time: 0")
         self.timer_label.grid(row=height, columnspan=width)
-<<<<<<< HEAD
-        self.colors = {"1": "blue", "2": "green", "3": "red", "4": "purple",
-<<<<<<< HEAD
-               "5": "maroon", "6": "turquoise", "7": "black", "8": "gray"}
-=======
         self.colors = {"1": "blue", "2": "green", "3": "yellow", "4": "purple",
                "5": "maroon", "6": "turquoise", "7": "black", "8": "gray"}        
->>>>>>> colors/graphics
-=======
-               "5": "maroon", "6": "turquoise", "7": "black", "8": "gray"}        
->>>>>>> 928ad13 (add pop up windows for end game and colors for the numbers (more visible))
         self.create_widgets()
         self.place_mines()
         self.update_display()
@@ -108,14 +99,9 @@ class MineSweeper(tk.Tk):
         for y in range(self.height):
             for x in range(self.width):
                 if self.board[y][x] == -1:
-<<<<<<< HEAD
                     self.tiles[y][x].config(text="X", state=tk.DISABLED, disabledforeground="red")               
                       
 
-=======
-                    self.tiles[y][x].config(text="X", state=tk.DISABLED)
-                    
->>>>>>> 928ad13 (add pop up windows for end game and colors for the numbers (more visible))
         
         for row in self.tiles:
             for tile in row:
@@ -135,7 +121,6 @@ class MineSweeper(tk.Tk):
         
         self.start_time = None
         
-<<<<<<< HEAD
         # Add a resest button above 
         reset_button = tk.Button(game_over_window, text="Reset", command=self.reset_game)
         reset_button.pack(pady=10)
@@ -143,11 +128,6 @@ class MineSweeper(tk.Tk):
         # Add a quit button below
         reset_button = tk.Button(game_over_window, text="Quit", command=self.quit)
         reset_button.pack(pady=10)
-=======
-        # Ajouter le bouton Reset en dessous
-        reset_button = tk.Button(game_over_window, text="Reset", command=self.reset_game)
-        reset_button.pack(pady=10)
->>>>>>> 928ad13 (add pop up windows for end game and colors for the numbers (more visible))
                     
 
     def update_display(self):
@@ -180,11 +160,8 @@ if __name__ == "__main__":
         "Medium": {"width": 10, "height": 10, "mines_range": (20, 30)},
         "Hard": {"width": 12, "height": 12, "mines_range": (30, 40)}
     }
-<<<<<<< HEAD
-    chosen_difficulty = "Easy"  # Change difficulty here
-=======
+
     chosen_difficulty = "Medium"  # Change difficulty here
->>>>>>> colors/graphics
     width = difficulty_levels[chosen_difficulty]["width"]
     height = difficulty_levels[chosen_difficulty]["height"]
     min_mines, max_mines = difficulty_levels[chosen_difficulty]["mines_range"]
