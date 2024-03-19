@@ -16,6 +16,8 @@ class MineSweeper(tk.Tk):
         self.start_time = None
         self.timer_label = tk.Label(self, text="Time: 0")
         self.timer_label.grid(row=height, columnspan=width)
+        self.colors = {"1": "blue", "2": "green", "3": "yellow", "4": "purple",
+               "5": "maroon", "6": "turquoise", "7": "black", "8": "gray"}   
         self.create_widgets()
         self.place_mines()
         self.update_display()
@@ -89,7 +91,35 @@ class MineSweeper(tk.Tk):
         for y in range(self.height):
             for x in range(self.width):
                 if self.board[y][x] == -1:
-                    self.tiles[y][x].config(text="X", state=tk.DISABLED)
+                    self.tiles[y][x].config(text="X", state=tk.DISABLED, disabledforeground="red")
+                    
+        
+        
+        for row in self.tiles:
+            for tile in row:
+                if tile != self.timer_label:  # Ne pas désactiver le chronomètre
+                    tile.config(state=tk.DISABLED)
+                    
+                    
+                     # Créer une nouvelle fenêtre pop-up
+        game_over_window = tk.Toplevel(self)
+        game_over_window.title("Game Over")
+        
+        # Afficher le texte "Game Over" en gros
+        game_over_label = tk.Label(game_over_window, text="Game Over", font=("Helvetica", 24))
+        game_over_label.pack(pady=10)
+        
+        
+        
+        self.start_time = None
+        
+        # Add a resest button above 
+        reset_button = tk.Button(game_over_window, text="Reset", command=self.reset_game)
+        reset_button.pack(pady=10)
+        
+        # Add a quit button below
+        reset_button = tk.Button(game_over_window, text="Quit", command=self.quit)
+        reset_button.pack(pady=10) 
 
     def update_display(self):
         for y in range(self.height):
