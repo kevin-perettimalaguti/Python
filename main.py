@@ -30,6 +30,7 @@ class MineSweeper(tk.Tk):
             for x in range(self.width):
                 tile = tk.Button(self, width=2, height=1, command=lambda x=x, y=y: self.click_tile(x, y))
                 tile.grid(row=y, column=x)
+                
                 row.append(tile)
             self.tiles.append(row)
 
