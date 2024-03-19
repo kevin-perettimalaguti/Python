@@ -5,6 +5,7 @@ import time
 class MineSweeper(tk.Tk):
     def __init__(self, width, height, num_mines, difficulty):
         super().__init__()
+        self.title("MineSweeper")
         self.width = width
         self.height = height
         self.num_mines = num_mines
@@ -130,7 +131,7 @@ class MineSweeper(tk.Tk):
         "Hard": {"width": 12, "height": 12, "mines_range": (30, 40)}
         }
 
-        chosen_difficulty = "Medium"
+        chosen_difficulty = "Easy"
         width = difficulty_levels[chosen_difficulty]["width"]
         height = difficulty_levels[chosen_difficulty]["height"]
         min_mines, max_mines = difficulty_levels[chosen_difficulty]["mines_range"]
@@ -162,7 +163,7 @@ class MineSweeper(tk.Tk):
         "Hard": {"width": 12, "height": 12, "mines_range": (30, 40)}
         }
 
-        chosen_difficulty = "Medium"
+        chosen_difficulty = "Hard"
         width = difficulty_levels[chosen_difficulty]["width"]
         height = difficulty_levels[chosen_difficulty]["height"]
         min_mines, max_mines = difficulty_levels[chosen_difficulty]["mines_range"]
