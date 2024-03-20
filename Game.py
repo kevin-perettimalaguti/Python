@@ -18,6 +18,6 @@ class Game(MineSweeper):
             game = MineSweeper(width=width, height=height, num_mines=num_mines, difficulty=chosen_difficulty)
             game.mainloop()
             
-    start_game()
+
 
     

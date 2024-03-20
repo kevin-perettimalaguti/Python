@@ -16,6 +16,7 @@ class MineSweeper(tk.Tk):
         self.start_time = None
         self.timer_label = tk.Label(self, text="Time: 0")
         self.timer_label.grid(row=height, columnspan=width)
+        # Add a dictionary to store the colors of the numbers
         self.colors = {"1": "blue", "2": "green", "3": "yellow", "4": "purple",
                "5": "maroon", "6": "turquoise", "7": "black", "8": "gray"}   
         self.create_widgets()
@@ -70,6 +71,7 @@ class MineSweeper(tk.Tk):
                             self.reveal_tile(nx, ny)
             else:
                 self.tiles[y][x].config(text=str(value), state=tk.DISABLED)
+                # Change the color of the number
                 self.tiles[y][x].config(disabledforeground=self.colors[str(value)])
 
     def toggle_flag(self, event):
@@ -98,15 +100,16 @@ class MineSweeper(tk.Tk):
         
         for row in self.tiles:
             for tile in row:
-                if tile != self.timer_label:  # Ne pas désactiver le chronomètre
+                # Not disable the timer label
+                if tile != self.timer_label: 
                     tile.config(state=tk.DISABLED)
                     
                     
-                     # Créer une nouvelle fenêtre pop-up
+                     # Create a new window 
         game_over_window = tk.Toplevel(self)
         game_over_window.title("Game Over")
         
-        # Afficher le texte "Game Over" en gros
+        # Pop Up the Game Over Game 
         game_over_label = tk.Label(game_over_window, text="Game Over", font=("Helvetica", 24))
         game_over_label.pack(pady=10)
         
@@ -133,7 +136,7 @@ class MineSweeper(tk.Tk):
                     else:
                         self.tiles[y][x].config(text="?")
         self.after(100, self.update_display)
-
+    #set the timer label to update every second
     def update_timer(self):
         if self.start_time is not None:
             elapsed_time = int(time.time() - self.start_time)
