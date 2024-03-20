@@ -21,7 +21,7 @@ class MineSweeper(tk.Tk):
         self.create_widgets()
         self.place_mines()
         self.update_display()
-        self.bind("<Button-3>", self.toggle_flag)
+        self.bind("<Button-2>", self.toggle_flag)
         self.button()        
 
     def create_widgets(self):
