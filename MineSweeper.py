@@ -20,10 +20,10 @@ class MineSweeper(tk.Tk):
         self.colors = {"1": "blue", "2": "green", "3": "orange", "4": "purple",
                "5": "maroon", "6": "turquoise", "7": "black", "8": "gray"}   
         self.create_widgets()
-        self.place_mines()
         self.update_display()
-        self.bind("<Button-2>", self.toggle_flag)
-        self.button()        
+        self.bind("<Button-3>", self.toggle_flag)
+        self.first_click = True
+        self.button()
 
     def create_widgets(self):
         for y in range(self.height):
@@ -34,12 +34,12 @@ class MineSweeper(tk.Tk):
                 row.append(tile)
             self.tiles.append(row)
 
-    def place_mines(self):
+    def place_mines(self, x_first, y_first):
         mines_placed = 0
         while mines_placed < self.num_mines:
             x = random.randint(0, self.width - 1)
             y = random.randint(0, self.height - 1)
-            if self.board[y][x] != -1:
+            if self.board[y][x] != -1 and (x != x_first or y != y_first):
                 self.board[y][x] = -1
                 mines_placed += 1
                 for dx in range(-1, 2):
@@ -52,6 +52,9 @@ class MineSweeper(tk.Tk):
         if self.start_time is None:
             self.start_time = time.time()
             self.update_timer()
+        if self.first_click:
+            self.place_mines(x, y)
+            self.first_click = False
         if self.flags[y][x] == 0:
             if self.board[y][x] == -1:
                 self.tiles[y][x].config(text="X", state=tk.DISABLED)
@@ -96,8 +99,6 @@ class MineSweeper(tk.Tk):
                 if self.board[y][x] == -1:
                     self.tiles[y][x].config(text="X", state=tk.DISABLED, disabledforeground="red")
                     
-        
-        
         for row in self.tiles:
             for tile in row:
                 # Not disable the timer label
@@ -136,12 +137,17 @@ class MineSweeper(tk.Tk):
                     else:
                         self.tiles[y][x].config(text="?")
         self.after(100, self.update_display)
+
     #set the timer label to update every second
     def update_timer(self):
         if self.start_time is not None:
             elapsed_time = int(time.time() - self.start_time)
             self.timer_label.config(text="Time: {}".format(elapsed_time))
             self.after(1000, self.update_timer)
+    
+    
+    
+    
     
     def button(self):
         self.button_easy = tk.Button(self, text="Easy", command=self.start_game_easy)
@@ -204,13 +210,12 @@ class MineSweeper(tk.Tk):
         num_mines = random.randint(min_mines, max_mines)
         game = MineSweeper(width=width, height=height, num_mines=num_mines, difficulty=chosen_difficulty)
         game.mainloop()
-
+        
+        
+        
+        
     def reset_game(self):
         self.destroy()
         new_game = MineSweeper(self.width, self.height, self.num_mines, self.difficulty)
         new_game.mainloop()
         
-    
-
-
-
