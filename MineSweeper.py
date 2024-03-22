@@ -17,12 +17,12 @@ class MineSweeper(tk.Tk):
         self.timer_label = tk.Label(self, text="Time: 0")
         self.timer_label.grid(row=height, columnspan=width)
         # Add a dictionary to store the colors of the numbers
-        self.colors = {"1": "blue", "2": "green", "3": "yellow", "4": "purple",
+        self.colors = {"1": "blue", "2": "green", "3": "orange", "4": "purple",
                "5": "maroon", "6": "turquoise", "7": "black", "8": "gray"}   
         self.create_widgets()
         self.place_mines()
         self.update_display()
-        self.bind("<Button-3>", self.toggle_flag)
+        self.bind("<Button-2>", self.toggle_flag)
         self.button()        
 
     def create_widgets(self):
