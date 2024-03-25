@@ -33,7 +33,7 @@ class MineSweeper(tk.Tk):
                 tile.grid(row=y, column=x)
                 row.append(tile)
             self.tiles.append(row)
-
+    #place mines on the board at the begining of the party 
     def place_mines(self, x_first, y_first):
         mines_placed = 0
         while mines_placed < self.num_mines:
