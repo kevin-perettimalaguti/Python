@@ -52,6 +52,7 @@ class MineSweeper(tk.Tk):
         if self.start_time is None:
             self.start_time = time.time()
             self.update_timer()
+        #in that case place the mines after the first click 
         if self.first_click:
             self.place_mines(x, y)
             self.first_click = False
@@ -62,6 +63,7 @@ class MineSweeper(tk.Tk):
             else:
                 self.reveal_tile(x, y)
 
+    #reveal the tile
     def reveal_tile(self, x, y):
         if self.tiles[y][x]["state"] == tk.NORMAL:
             value = self.board[y][x]
@@ -76,7 +78,7 @@ class MineSweeper(tk.Tk):
                 self.tiles[y][x].config(text=str(value), state=tk.DISABLED)
                 # Change the color of the number
                 self.tiles[y][x].config(disabledforeground=self.colors[str(value)])
-
+    
     def toggle_flag(self, event):
         x, y = self.winfo_pointerxy()
         widget = self.winfo_containing(x, y)
